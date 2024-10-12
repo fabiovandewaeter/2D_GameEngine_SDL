@@ -13,7 +13,7 @@ public:
 
 private:
     void spawnEntities();
-    std::vector<SDL_Rect> getPotentialSpawnTiles();
+    std::vector<SDL_Rect> getPotentialSpawnTiles(SDL_Rect entityHitBox);
 };
 
 #endif

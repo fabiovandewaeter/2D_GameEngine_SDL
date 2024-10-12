@@ -79,10 +79,10 @@ void Chunk::loadPassiveStructures()
     int i = 2, j = 0;
     std::string coordinates = std::to_string(i) + "," + std::to_string(j);
     this->allStructures[coordinates] = new Wall((*this->passiveStructureTextures)[0], (SDL_Rect){i * this->tileSize + this->box.x, j * this->tileSize + this->box.y, this->tileSize, this->tileSize}, 100, this->map);
-    i+=2;
+    i += 2;
     coordinates = std::to_string(i) + "," + std::to_string(j);
     this->allStructures[coordinates] = new Wall((*this->passiveStructureTextures)[1], (SDL_Rect){i * this->tileSize + this->box.x, j * this->tileSize + this->box.y, this->tileSize, this->tileSize}, 100, this->map);
-    i+=2;
+    i += 2;
     int x = 2 * this->tileSize, y = 0 * this->tileSize;
 }
 void Chunk::loadActiveStructures()
@@ -103,6 +103,13 @@ void Chunk::render(Camera *camera)
     for (auto &pair : this->allStructures)
     {
         pair.second->render(camera);
+    }
+}
+void Chunk::update()
+{
+    for (auto &[coords, structure] : allStructures)
+    {
+        structure->update();
     }
 }
 

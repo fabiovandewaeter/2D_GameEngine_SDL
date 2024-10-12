@@ -13,7 +13,7 @@ class Map;
 class Structure
 {
 public:
-    Structure(Texture *texture, SDL_Rect hitBox, unsigned int HP, bool solid, Map *map);
+    Structure(Texture *texture, SDL_Rect hitBox, unsigned int HP, bool solid);
     ~Structure();
 
     void update();
@@ -33,7 +33,6 @@ protected:
     Texture *texture;
     bool solid;
     unsigned int HP;
-    Map *map;
 
 };
 

@@ -28,6 +28,7 @@ public:
     void loadPassiveStructures();
     void loadActiveStructures();
     void render(Camera *camera);
+    void update();
 
     Tile *getTile(int x, int y);
     Structure *getStructure(int x, int y);
