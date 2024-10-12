@@ -26,6 +26,7 @@ public:
     void generateChunk(int positionX, int positionY);
     void loadSquareMap(int size);
     void render();
+    void update();
     void free();
 
     bool isChunkGenerated(int x, int y);

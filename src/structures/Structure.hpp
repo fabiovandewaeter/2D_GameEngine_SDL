@@ -25,7 +25,7 @@ public:
 
     SDL_Rect getHitBox();
     bool isSolid();
-    bool isActive();
+    bool isDestroyed();
     void setHitBox(SDL_Rect hitBox);
 
 protected:
@@ -33,7 +33,7 @@ protected:
     Texture *texture;
     bool solid;
     unsigned int HP;
-
+    bool destroyed;
 };
 
 #endif

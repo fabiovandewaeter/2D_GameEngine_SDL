@@ -6,7 +6,7 @@
 class Wall : public PassiveStructure
 {
 public:
-    Wall(Texture *texture, SDL_Rect hitBox, unsigned int HP, Map *map);
+    Wall(Texture *texture, SDL_Rect hitBox, unsigned int HP);
 
 private:
 };

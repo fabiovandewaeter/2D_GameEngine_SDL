@@ -7,7 +7,7 @@
 
 class Effects;
 
-Turret::Turret(Texture *texture, CollisionManager *collisionManager, EntityManager *entityManager, Map *map, SDL_Rect hitBox, unsigned int HP) : ActiveStructure(texture, collisionManager, entityManager, map, hitBox, HP, true)
+Turret::Turret(Texture *texture, CollisionManager *collisionManager, EntityManager *entityManager, SDL_Rect hitBox, unsigned int HP) : ActiveStructure(texture, collisionManager, entityManager, hitBox, HP, true)
 {
     this->actions.push_back(new Action(new SquarePattern(this->entityManager, 30), std::vector<Effect *>{new DamageEffect(10)}, 60));
 }

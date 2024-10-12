@@ -84,8 +84,8 @@ void Game::init(std::string title, int xpos, int ypos, int width, int height, bo
     this->map.init(&this->camera, this->tileTextures, this->passiveStructureTextures, this->activeStructureTextures, &this->perlinNoise, &this->collisionManager);
 
     // TO DELETE
-    this->core = new Core((*this->activeStructureTextures)[0], &this->collisionManager, &this->entityManager, &this->map, (SDL_Rect){16 * 2, 16 * 2, 0, 0}, 1000);
-    this->turret = new Turret((*this->activeStructureTextures)[1], &this->collisionManager, &this->entityManager, &this->map, (SDL_Rect){16 * 3, 16 * 3, 0, 0}, 1000);
+    this->core = new Core((*this->activeStructureTextures)[0], &this->collisionManager, &this->entityManager, (SDL_Rect){16 * 2, 16 * 2, 0, 0}, 1000);
+    this->turret = new Turret((*this->activeStructureTextures)[1], &this->collisionManager, &this->entityManager, (SDL_Rect){16 * 3, 16 * 3, 0, 0}, 1000);
     this->map.getChunk(0, 0)->addStructure(this->core);
     this->map.getChunk(0, 0)->addStructure(this->turret);
     // TO DELETE
@@ -141,8 +141,10 @@ void Game::update()
     this->camera.update();
     this->entityManager.update();
 
-    this->core->update();
-    this->turret->update();
+    this->map.update();
+
+    //this->core->update();
+    //this->turret->update();
 
     countPrinter("UPS", counterUPS, intervalUPS, lastTimeUPS);
 }

@@ -6,7 +6,7 @@
 class PassiveStructure : public Structure
 {
 public:
-    PassiveStructure(Texture *texture, SDL_Rect hitBox, unsigned int HP, Map *map);
+    PassiveStructure(Texture *texture, SDL_Rect hitBox, unsigned int HP);
 
     void onRightClick() override;
 

@@ -12,7 +12,7 @@ class Action;
 class ActiveStructure : public Structure
 {
 public:
-    ActiveStructure(Texture *texture, CollisionManager *collisionManager, EntityManager *entityManager, Map *map, SDL_Rect hitBox, unsigned int HP, bool solid);
+    ActiveStructure(Texture *texture, CollisionManager *collisionManager, EntityManager *entityManager, SDL_Rect hitBox, unsigned int HP, bool solid);
     ~ActiveStructure();
 
     virtual void update() = 0;

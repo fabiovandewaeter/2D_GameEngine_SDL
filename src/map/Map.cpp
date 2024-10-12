@@ -58,6 +58,14 @@ void Map::render()
         this->nearbyChunks[i]->render(this->camera);
     }
 }
+void Map::update()
+{
+    int size = this->nearbyChunks.size();
+    for (int i = 0; i < size; i++)
+    {
+        this->nearbyChunks[i]->update();
+    }
+}
 void Map::free()
 {
     printf("FAIRE LE FREE DE MAP\n");

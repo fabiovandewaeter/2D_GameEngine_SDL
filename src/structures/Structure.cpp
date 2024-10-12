@@ -2,13 +2,13 @@
 #include "../systems/Camera.hpp"
 #include "../Texture.hpp"
 
-Structure::Structure(Texture *texture, SDL_Rect hitBox, unsigned int HP, bool solid, Map *map)
+Structure::Structure(Texture *texture, SDL_Rect hitBox, unsigned int HP, bool solid)
 {
     this->texture = texture;
     this->hitBox = hitBox;
     this->HP = HP;
     this->solid = solid;
-    this->map = map;
+    this->destroyed = false;
 }
 Structure::~Structure() {}
 
@@ -30,4 +30,5 @@ void Structure::onRightClick() { std::cout << "fait rien RIGHT" << std::endl; }
 
 SDL_Rect Structure::getHitBox() { return this->hitBox; }
 bool Structure::isSolid() { return this->solid; }
+bool Structure::isDestroyed() { return this->destroyed; }
 void Structure::setHitBox(SDL_Rect hitBox) { this->hitBox = hitBox; }
