@@ -1,9 +1,9 @@
-#include "Chunk.hpp"
+#include "map/Chunk.hpp"
 
-#include "Tile.hpp"
-#include "../systems/PerlinNoise.hpp"
-#include "../systems/Camera.hpp"
-#include "../structures/passiveStructures/Wall.hpp"
+#include "map/Tile.hpp"
+#include "systems/PerlinNoise.hpp"
+#include "systems/Camera.hpp"
+#include "structures/passiveStructures/Wall.hpp"
 
 Chunk::Chunk(int positionX, int positionY, int tileSize, Map *map, std::vector<Texture *> *tileTextures, std::vector<Texture *> *passiveStructureTextures, std::vector<Texture *> *activeStructureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager)
 {

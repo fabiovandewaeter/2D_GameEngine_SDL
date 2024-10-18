@@ -3,7 +3,7 @@
 
 #define VELOCITY_MULTIPLIER 1
 
-#include <SDL_render.h>
+#include <SDL2/SDL_render.h>
 
 class Texture;
 class State;

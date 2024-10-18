@@ -1,9 +1,9 @@
-#include "MouseManager.hpp"
+#include "systems/MouseManager.hpp"
 
-#include "../map/Map.hpp"
-#include "../map/Chunk.hpp"
-#include "Camera.hpp"
-#include "../structures/Structure.hpp"
+#include "map/Map.hpp"
+#include "map/Chunk.hpp"
+#include "systems/Camera.hpp"
+#include "structures/Structure.hpp"
 
 MouseManager::MouseManager() {}
 MouseManager::~MouseManager() {}

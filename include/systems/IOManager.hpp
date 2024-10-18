@@ -3,7 +3,7 @@
 
 #define TOTAL_DATA 1000
 
-#include <SDL_stdinc.h>
+#include <SDL2/SDL_stdinc.h>
 
 
 // source : https://lazyfoo.net/tutorials/SDL/33_file_reading_and_writing/index.php

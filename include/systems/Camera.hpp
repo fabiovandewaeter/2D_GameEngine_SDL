@@ -1,8 +1,8 @@
 #ifndef camera_hpp
 #define camera_hpp
 
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <iostream>
 
 // source : https://lazyfoo.net/tutorials/SDL/30_scrolling/index.php

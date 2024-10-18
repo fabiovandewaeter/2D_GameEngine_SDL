@@ -1,4 +1,4 @@
-#include "Effect.hpp"
+#include "actions/effects/Effect.hpp"
 
 Effect::Effect() {}
 Effect::~Effect() {}

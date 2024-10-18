@@ -1,7 +1,7 @@
-#include "Map.hpp"
+#include "map/Map.hpp"
 
-#include "Chunk.hpp"
 #include <iostream>
+#include "map/Chunk.hpp"
 
 Map::Map() {}
 Map::~Map()

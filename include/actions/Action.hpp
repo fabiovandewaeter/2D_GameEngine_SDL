@@ -2,7 +2,7 @@
 #define action_hpp
 
 #include <vector>
-#include <SDL_stdinc.h>
+#include <SDL2/SDL_stdinc.h>
 
 class Entity;
 class Pattern;

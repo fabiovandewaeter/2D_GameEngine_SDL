@@ -1,4 +1,4 @@
-#include "GameAI.hpp"
+#include "entities/AI/GameAI.hpp"
 
 GameAI::GameAI() {}
 GameAI::~GameAI() {}

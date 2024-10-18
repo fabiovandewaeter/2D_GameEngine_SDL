@@ -3,8 +3,7 @@
 
 #define SPRINT_MULTIPLIER 5
 
-#include <SDL.h>
-#include <SDL_render.h>
+#include <SDL2/SDL.h>
 #include "Entity.hpp"
 
 class Player : public Entity

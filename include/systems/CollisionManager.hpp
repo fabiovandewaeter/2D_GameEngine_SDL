@@ -1,7 +1,7 @@
 #ifndef collision_manager_hpp
 #define collision_manager_hpp
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <vector>
 
 class Map;

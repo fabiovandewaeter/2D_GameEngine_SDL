@@ -1,6 +1,6 @@
-#include "ActiveStructure.hpp"
+#include "structures/activeStructures/ActiveStructure.hpp"
 
-#include "../../actions/Action.hpp"
+#include "actions/Action.hpp"
 
 ActiveStructure::ActiveStructure(Texture *texture, CollisionManager *collisionManager, EntityManager *entityManager, SDL_Rect hitBox, unsigned int HP, bool solid) : Structure(texture, hitBox, HP, solid)
 {

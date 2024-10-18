@@ -1,4 +1,4 @@
-#include "ControlledState.hpp"
+#include "entities/states/ControlledState.hpp"
 
 ControlledState::ControlledState(Entity *entity)
 {

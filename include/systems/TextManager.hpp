@@ -3,7 +3,7 @@
 
 #define NUMBER_OF_CHARACTERS 94
 
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 
 class Texture;
 

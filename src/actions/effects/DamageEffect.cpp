@@ -1,7 +1,7 @@
-#include "DamageEffect.hpp"
+#include "actions/effects/DamageEffect.hpp"
 
-#include "../../entities/Entity.hpp"
 #include "iostream"
+#include "entities/Entity.hpp"
 
 DamageEffect::DamageEffect(int damage) : Effect() { this->damage = damage; }
 DamageEffect::~DamageEffect() {}

@@ -1,7 +1,7 @@
 #ifndef entity_manager_hpp
 #define entity_manager_hpp
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <vector>
 
 class Camera;

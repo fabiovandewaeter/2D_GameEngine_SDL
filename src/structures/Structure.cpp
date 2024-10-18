@@ -1,6 +1,6 @@
-#include "Structure.hpp"
-#include "../systems/Camera.hpp"
-#include "../Texture.hpp"
+#include "structures/Structure.hpp"
+#include "systems/Camera.hpp"
+#include "Texture.hpp"
 
 Structure::Structure(Texture *texture, SDL_Rect hitBox, unsigned int HP, bool solid)
 {

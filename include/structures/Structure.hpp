@@ -1,7 +1,7 @@
 #ifndef structure_hpp
 #define structure_hpp
 
-#include <SDL.h>
+#include <SDL2/SDL_rect.h>
 #include <string>
 
 class Texture;

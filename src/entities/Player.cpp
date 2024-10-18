@@ -1,6 +1,6 @@
-#include "Player.hpp"
+#include "entities/Player.hpp"
 
-#include "states/RestState.hpp"
+#include "entities/states/RestState.hpp"
 
 // 1 if false and sprintVelocity if true
 int sprint2 = 1;

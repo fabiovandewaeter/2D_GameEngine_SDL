@@ -1,9 +1,9 @@
-#include "Turret.hpp"
+#include "structures/activeStructures/Turret.hpp"
 
 #include <iostream>
-#include "../../actions/Action.hpp"
-#include "../../actions/patterns/SquarePattern.hpp"
-#include "../../actions/effects/DamageEffect.hpp"
+#include "actions/Action.hpp"
+#include "actions/patterns/SquarePattern.hpp"
+#include "actions/effects/DamageEffect.hpp"
 
 class Effects;
 

@@ -1,11 +1,11 @@
-#include "CollisionManager.hpp"
+#include "systems/CollisionManager.hpp"
 
 #include <iostream>
-#include "EntityManager.hpp"
-#include "../entities/Entity.hpp"
-#include "../map/Map.hpp"
-#include "../map/Chunk.hpp"
-#include "../structures/Structure.hpp"
+#include "systems/EntityManager.hpp"
+#include "entities/Entity.hpp"
+#include "map/Map.hpp"
+#include "map/Chunk.hpp"
+#include "structures/Structure.hpp"
 
 CollisionManager::CollisionManager() {}
 CollisionManager::~CollisionManager() {}

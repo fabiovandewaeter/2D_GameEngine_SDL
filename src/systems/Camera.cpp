@@ -1,4 +1,4 @@
-#include "Camera.hpp"
+#include "systems/Camera.hpp"
 
 const double BASE_SCALE = 1.0;
 // 1 if false and sprintVelocity if true

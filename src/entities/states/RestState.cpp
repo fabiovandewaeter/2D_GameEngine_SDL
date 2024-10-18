@@ -1,4 +1,4 @@
-#include "RestState.hpp"
+#include "entities/states/RestState.hpp"
 
 RestState::RestState(Entity *entity)
 {

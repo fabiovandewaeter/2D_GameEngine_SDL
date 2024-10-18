@@ -1,7 +1,7 @@
-#include "PassiveStructure.hpp"
+#include "structures/passiveStructures/PassiveStructure.hpp"
 
-#include "../../map/Map.hpp"
-#include "../../map/Chunk.hpp"
+#include "map/Map.hpp"
+#include "map/Chunk.hpp"
 
 PassiveStructure::PassiveStructure(Texture *texture, SDL_Rect hitBox, unsigned int HP) : Structure(texture, hitBox, HP, true) {}
 

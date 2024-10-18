@@ -2,7 +2,7 @@
 #define audio_manager_hpp
 
 #include <vector>
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 
 class AudioManager
 {

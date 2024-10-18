@@ -1,7 +1,7 @@
 #ifndef tile_hpp
 #define tile_hpp
 
-#include <SDL.h>
+#include <SDL2/SDL_rect.h>
 #include <vector>
 
 class Texture;

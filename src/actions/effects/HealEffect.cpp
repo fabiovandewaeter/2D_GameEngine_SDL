@@ -1,6 +1,6 @@
-#include "HealEffect.hpp"
+#include "actions/effects/HealEffect.hpp"
 
-#include "../../entities/Entity.hpp"
+#include "entities/Entity.hpp"
 
 HealEffect::HealEffect(int hp) : Effect() { this->hp = hp; }
 HealEffect::~HealEffect() {}

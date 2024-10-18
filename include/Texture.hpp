@@ -1,9 +1,9 @@
 #ifndef texture_hpp
 #define texture_hpp
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
 
 // source : https://lazyfoo.net/tutorials/SDL/10_color_keying/index.php

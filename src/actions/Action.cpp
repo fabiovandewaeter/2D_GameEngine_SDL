@@ -1,8 +1,8 @@
-#include "Action.hpp"
+#include "actions/Action.hpp"
 
-#include "patterns/Pattern.hpp"
-#include "effects/Effect.hpp"
-#include "../systems/TickManager.hpp"
+#include "actions/patterns/Pattern.hpp"
+#include "actions/effects/Effect.hpp"
+#include "systems/TickManager.hpp"
 
 Action::Action(Pattern *pattern, std::vector<Effect *> effects, Uint64 cooldown)
 {

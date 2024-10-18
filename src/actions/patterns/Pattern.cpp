@@ -1,4 +1,4 @@
-#include "Pattern.hpp"
+#include "actions/patterns/Pattern.hpp"
 
 Pattern::Pattern(EntityManager *entityManager, int radius)
 {

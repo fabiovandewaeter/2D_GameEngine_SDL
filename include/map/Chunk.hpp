@@ -3,7 +3,7 @@
 
 #define SIZE 16
 
-#include <SDL.h>
+#include <SDL2/SDL_rect.h>
 #include <string>
 #include <vector>
 #include <unordered_map>

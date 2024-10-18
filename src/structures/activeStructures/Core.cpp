@@ -1,11 +1,11 @@
-#include "Core.hpp"
+#include "structures/activeStructures/Core.hpp"
 
 #include <iostream>
-#include "../../systems/CollisionManager.hpp"
-#include "../../systems/EntityManager.hpp"
-#include "../../systems/TextureManager.hpp"
-#include "../../entities/Entity.hpp"
-#include "../../Map/Map.hpp"
+#include "systems/CollisionManager.hpp"
+#include "systems/EntityManager.hpp"
+#include "systems/TextureManager.hpp"
+#include "entities/Entity.hpp"
+#include "map/Map.hpp"
 
 Core::Core(Texture *texture, CollisionManager *collisionManager, EntityManager *entityManager, SDL_Rect hitBox, unsigned int HP) : ActiveStructure(texture, collisionManager, entityManager, hitBox, HP, true) {}
 

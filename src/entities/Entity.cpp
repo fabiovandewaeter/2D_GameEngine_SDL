@@ -1,9 +1,9 @@
-#include "Entity.hpp"
+#include "entities/Entity.hpp"
 
-#include "states/RestState.hpp"
-#include "../systems/CollisionManager.hpp"
-#include "../systems/Camera.hpp"
-#include "../Texture.hpp"
+#include "entities/states/RestState.hpp"
+#include "systems/CollisionManager.hpp"
+#include "systems/Camera.hpp"
+#include "Texture.hpp"
 
 Entity::Entity(Texture *texture, SDL_Rect hitBox, int HP)
 {

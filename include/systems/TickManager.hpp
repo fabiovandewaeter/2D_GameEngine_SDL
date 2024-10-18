@@ -1,7 +1,7 @@
 #ifndef tick_manager_hpp
 #define tick_manager_hpp
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 class TickManager
 {
