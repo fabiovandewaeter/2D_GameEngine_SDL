@@ -27,22 +27,41 @@ The basic functionalities of a game engine are recreated from scratch in order t
 
 #### Install
 
-	 * SDL2
-	 ```
-	 git clone https://github.com/libsdl-org/SDL.git -b SDL2
-	 ./autogen.sh
-	 ./configure --prefix=$HOME/libs/SDL2
-	 make
-	 make install
-	 export LD_LIBRARY_PATH=$HOME/libs/SDL2/lib:$LD_LIBRARY_PATH
-	 ```
-	 * SDL_image:
-	 ```
-	 wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz
-	 ./configure --prefix=$HOME/libs/SDL2
-	 ```
+* SDL2
+```bash
+git clone https://github.com/libsdl-org/SDL.git -b SDL2
+./autogen.sh
+./configure --prefix=$HOME/libs/SDL2
+make
+make install
+export LD_LIBRARY_PATH=$HOME/libs/SDL2/lib:$LD_LIBRARY_PATH
+```
+* SDL_image:
+```bash
+wget https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.5.tar.gz
+tar -xzf SDL2_image-2.0.5.tar.gz
+./configure --prefix=$HOME/libs/SDL2
+make
+make install
+```
+* SDL_ttf:
+```bash
+wget https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.22.0.tar.gz
+tar -xzf SDL2_ttf-2.22.0.tar.gz
+./configure --prefix=$HOME/libs/SDL2
+make
+make install
+```
+* SDL_mixer:
+```bash
+wget https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-2.8.0.tar.gz
+tar -xzf SDL2_mixer-2.8.0.tar.gz
+./configure --prefix=$HOME/libs/SDL2
+make
+make install
+```
 
-	 `g++ src/*.cpp src/entities/*.cpp src/systems/*.cpp src/map/*.cpp src/structures/passiveStructures/*.cpp src/structures/activeStructures/*.cpp -I include -I$HOME/libs/SDL2/include -L$HOME/libs/SDL2/lib -lSDL2 -I/opt/homebrew/opt/sdl2/include/SDL2 -I/opt/homebrew/opt/sdl2_image/include/SDL2/ -L/opt/homebrew/opt/sdl2/lib -L/opt/homebrew/opt/sdl2_image/lib -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer `
+`g++ src/*.cpp src/entities/*.cpp src/entities/states/*.cpp src/entities/AI/*.cpp src/entities/factions/*.cpp src/systems/*.cpp src/map/*.cpp src/structures/*.cpp src/structures/passiveStructures/*.cpp src/structures/activeStructures/*.cpp src/actions/patterns/*.cpp src/actions/effects/*.cpp src/actions/*.cpp -I include -I$HOME/libs/SDL2/include -L$HOME/libs/SDL2/lib -lSDL2 -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer`
 
 ## SDL libraries
 - SDL2
