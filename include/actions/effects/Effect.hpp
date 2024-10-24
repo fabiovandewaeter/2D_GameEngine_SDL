@@ -9,7 +9,7 @@ class Effect
 {
 public:
     Effect();
-    ~Effect();
+    virtual ~Effect();
 
     virtual void applyEffect(Entity *entity) = 0;
 

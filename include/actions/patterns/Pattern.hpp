@@ -10,7 +10,7 @@ class Pattern
 {
 public:
     Pattern(EntityManager *entityManager, int radius);
-    ~Pattern();
+    virtual ~Pattern();
 
     virtual std::vector<Entity *> getAffectedEntities(int x, int y) = 0;
 

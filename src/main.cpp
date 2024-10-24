@@ -15,6 +15,11 @@ int main(int argc, char *argv[])
     {
         UPS = std::atoi(argv[1]);
     }
+    else if (argc == 3)
+    {
+        width = std::atoi(argv[1]);
+        height = std::atoi(argv[2]);
+    }
     else if (argc == 4)
     {
         width = std::atoi(argv[1]);
