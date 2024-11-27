@@ -113,6 +113,31 @@ void Texture::render(SDL_Rect srcBox, SDL_Rect dstBox)
 {
     SDL_RenderCopy(this->renderer, texture, &srcBox, &dstBox);
 }
+void Texture::render(SDL_Renderer *renderer, SDL_Rect srcBox, SDL_Rect dstBox)
+{
+    std::cout << "test1" << std::endl;
+        if (this == nullptr)
+{
+    std::cerr << "Erreur : this est nul !" << std::endl;
+    return;
+}
+        if (this->texture == nullptr)
+    {
+        std::cerr << "Erreur : texture est nulle !" << std::endl;
+        return;
+    }
+    std::cout << "test2" << std::endl;
+        if (renderer == nullptr)
+    {
+        std::cerr << "Erreur : texture est nulle !" << std::endl;
+        return;
+    }
+    std::cout << "test3" << std::endl;
+
+    SDL_RenderCopy(this->renderer, texture, NULL, &dstBox);
+    std::cout << "test2" << std::endl;
+}
+
 
 int Texture::getWidth() { return width; }
 int Texture::getHeight() { return height; }
@@ -125,3 +150,7 @@ int Texture::getCenterX() { return this->getWidth() / 2; }
 int Texture::getCenterY() { return this->getHeight() / 2; }
 int Texture::getId() { return this->id; }
 int Texture::getTextureDefaultSize() { return TEXTURE_DEFAULT_SIZE; }
+SDL_Renderer * Texture::getRenderer(){
+    std::cout << "REMOVE Texture::getRenderer()" << std::endl;
+    return this->renderer;
+}

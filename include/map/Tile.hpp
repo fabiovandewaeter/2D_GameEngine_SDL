@@ -4,6 +4,7 @@
 #define TILE_SIZE 16
 
 #include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
 #include <vector>
 
 class Texture;
@@ -16,6 +17,7 @@ public:
     ~Tile();
 
     void render(Camera *camera);
+    void render(SDL_Renderer *renderer, SDL_Rect srcBox, SDL_Rect dstBox);
     int getCenterX();
     int getCenterY();
     int getTextureId();

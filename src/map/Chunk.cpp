@@ -5,6 +5,8 @@
 #include "systems/Camera.hpp"
 #include "structures/passiveStructures/Wall.hpp"
 
+#include "Texture.hpp"
+
 Chunk::Chunk(int positionX, int positionY, int tileSize, Map *map, std::vector<Texture *> *tileTextures, std::vector<Texture *> *passiveStructureTextures, std::vector<Texture *> *activeStructureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager)
 {
     this->positionX = positionX;
@@ -29,6 +31,10 @@ Chunk::~Chunk()
     for (auto &pair : this->allStructures)
     {
         delete pair.second;
+    }
+    if (this->combinedTexture != nullptr)
+    {
+        SDL_DestroyTexture(this->combinedTexture);
     }
 }
 
@@ -76,9 +82,55 @@ void Chunk::loadTilesWithPerlinNoise()
             this->allTiles[SIZE * i + j] = new Tile((*this->tileTextures)[textureIndex], x, y);
         }
     }
+    this->renderer = (*this->tileTextures)[0]->getRenderer();
+    generateCombinedTexture(this->renderer);
 }
 void Chunk::loadPassiveStructures() {}
 void Chunk::loadActiveStructures() {}
+
+void Chunk::generateCombinedTexture(SDL_Renderer *renderer)
+{
+    if (this->combinedTexture != nullptr)
+    {
+        SDL_DestroyTexture(this->combinedTexture); // Libérer la texture précédente si elle existe
+    }
+
+    // Créer une texture cible
+    this->combinedTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, this->box.w, this->box.h);
+    if (this->combinedTexture == nullptr)
+    {
+        std::cerr << "Erreur lors de la création de la texture combinée : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    if (SDL_SetTextureBlendMode(this->combinedTexture, SDL_BLENDMODE_BLEND) != 0)
+    {
+        std::cout << "pas bon" << std::endl;
+    }
+
+    // Sauvegarder le target actuel et définir la texture combinée comme target
+    SDL_Texture *previousTarget = SDL_GetRenderTarget(renderer);
+    // SDL_SetRenderTarget(renderer, this->combinedTexture);
+    if (SDL_SetRenderTarget(renderer, this->combinedTexture) != 0)
+    {
+        std::cerr << "Erreur lors de la définition de la texture combinée comme target : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    // Dessiner toutes les tiles sur la texture combinée
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            SDL_Rect dstRect = {i * this->tileSize, j * this->tileSize, this->tileSize, this->tileSize};
+            this->allTiles[SIZE * i + j]->render(renderer, (SDL_Rect){0, 0, 0, 0}, dstRect);
+        }
+    }
+
+    std::cout << "test1" << std::endl;
+    // Restaurer le target précédent
+    SDL_SetRenderTarget(renderer, previousTarget);
+}
 
 void Chunk::render(Camera *camera)
 {
@@ -86,9 +138,17 @@ void Chunk::render(Camera *camera)
     camera->convertInGameToCameraCoordinates(renderBox);
     if (camera->isVisible(renderBox))
     {
-        for (int i = 0; i < SIZE * SIZE; i++)
+        if (this->combinedTexture != nullptr)
         {
-            this->allTiles[i]->render(camera);
+            SDL_Rect dstRect = renderBox;
+            SDL_RenderCopy(this->renderer, this->combinedTexture, nullptr, &dstRect);
+        }
+        else
+        {
+            for (int i = 0; i < SIZE * SIZE; i++)
+            {
+                this->allTiles[i]->render(camera);
+            }
         }
     }
     for (auto &pair : this->allStructures)

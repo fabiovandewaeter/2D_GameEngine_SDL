@@ -4,6 +4,7 @@
 #define SIZE 16
 
 #include <SDL2/SDL_rect.h>
+#include <SDL2/SDL_render.h>
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -29,6 +30,7 @@ public:
     void loadTilesWithPerlinNoise();
     void loadPassiveStructures();
     void loadActiveStructures();
+    void generateCombinedTexture(SDL_Renderer *renderer);
     void render(Camera *camera);
     void update();
 
@@ -43,6 +45,7 @@ public:
 private:
     Tile *allTiles[SIZE * SIZE];
     std::vector<Texture *> *tileTextures;
+    SDL_Texture *combinedTexture = nullptr;
     int tileSize;
 
     Map *map;
@@ -56,6 +59,13 @@ private:
     Faction *faction;
 
     void convertToTileCoordinates(int &x, int &y);
+
+
+
+
+
+
+    SDL_Renderer *renderer;
 };
 
 #endif

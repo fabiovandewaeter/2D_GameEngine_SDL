@@ -24,6 +24,7 @@ public:
     void render(int x, int y, int w, int h);
     void render(SDL_Rect renderBox);
     void render(SDL_Rect srcBox, SDL_Rect dstBox);
+    void render(SDL_Renderer *renderer, SDL_Rect srcBox, SDL_Rect dstBox);
 
     int getWidth();
     int getHeight();
@@ -32,6 +33,9 @@ public:
     int getCenterY();
     int getId();
     int getTextureDefaultSize();
+
+
+    SDL_Renderer * getRenderer();
 
 private:
     SDL_Texture *texture;

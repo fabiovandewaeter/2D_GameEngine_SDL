@@ -37,6 +37,9 @@ void Tile::render(Camera *camera)
         this->texture->render(srcBox, dstBox);
     }
 }
+    void Tile::render(SDL_Renderer *renderer, SDL_Rect srcBox, SDL_Rect dstBox){
+        this->texture->render(renderer, srcBox, dstBox);
+    }
 
 int Tile::getCenterX() { return TILE_SIZE / 2; }
 int Tile::getCenterY() { return TILE_SIZE / 2; }
