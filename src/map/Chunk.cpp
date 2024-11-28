@@ -127,7 +127,6 @@ void Chunk::generateCombinedTexture(SDL_Renderer *renderer)
         }
     }
 
-    std::cout << "test1" << std::endl;
     // Restaurer le target précédent
     SDL_SetRenderTarget(renderer, previousTarget);
 }
@@ -136,12 +135,30 @@ void Chunk::render(Camera *camera)
 {
     SDL_Rect renderBox = this->box;
     camera->convertInGameToCameraCoordinates(renderBox);
+
     if (camera->isVisible(renderBox))
     {
         if (this->combinedTexture != nullptr)
         {
-            SDL_Rect dstRect = renderBox;
-            SDL_RenderCopy(this->renderer, this->combinedTexture, nullptr, &dstRect);
+            int cameraPositionX = camera->getPositionX();
+            int cameraPositionY = camera->getPositionY();
+            int viewCenterX = camera->getWidth() / 2;
+            int viewCenterY = camera->getHeight() / 2;
+            SDL_Rect dstRect = this->box;
+            // Position ajustée avec arrondi pour éviter les flottants
+            dstRect.x = static_cast<int>(std::round(
+                (viewCenterX - cameraPositionX * camera->getScale()) + (dstRect.x * camera->getScale())));
+            dstRect.y = static_cast<int>(std::round(
+                (viewCenterY - cameraPositionY * camera->getScale()) + (dstRect.y * camera->getScale())));
+
+            // Dimensions ajustées
+            dstRect.w = static_cast<int>(dstRect.w * camera->getScale());
+            dstRect.h = static_cast<int>(dstRect.h * camera->getScale());
+
+            // Désactiver l'interpolation
+
+            // Rendu
+            SDL_RenderCopy(this->renderer, this->combinedTexture, NULL, &dstRect);
         }
         else
         {

@@ -115,7 +115,6 @@ void Texture::render(SDL_Rect srcBox, SDL_Rect dstBox)
 }
 void Texture::render(SDL_Renderer *renderer, SDL_Rect srcBox, SDL_Rect dstBox)
 {
-    std::cout << "test1" << std::endl;
         if (this == nullptr)
 {
     std::cerr << "Erreur : this est nul !" << std::endl;
@@ -126,16 +125,13 @@ void Texture::render(SDL_Renderer *renderer, SDL_Rect srcBox, SDL_Rect dstBox)
         std::cerr << "Erreur : texture est nulle !" << std::endl;
         return;
     }
-    std::cout << "test2" << std::endl;
         if (renderer == nullptr)
     {
         std::cerr << "Erreur : texture est nulle !" << std::endl;
         return;
     }
-    std::cout << "test3" << std::endl;
 
     SDL_RenderCopy(this->renderer, texture, NULL, &dstBox);
-    std::cout << "test2" << std::endl;
 }
 
 

@@ -22,6 +22,31 @@ void Camera::init(int width, int height, double minScale, double maxScale, int p
     this->sprintVelocity = 50;
 }
 
+
+#include <vector>
+#include <limits>
+
+
+float getValidScale(float desiredScale, int originalSize) {
+    // Liste de tailles finales valides (ajoute celles que tu veux)
+    std::vector<int> validSizes = {16, 17, 18, 34}; // Dimensions finales autorisées
+    float closestScale = desiredScale;
+    float minDifference = std::numeric_limits<float>::max();
+
+    for (int size : validSizes) {
+        float scale = static_cast<float>(size) / originalSize;
+        float diff = std::abs(scale - desiredScale);
+
+        if (diff < minDifference) {
+            minDifference = diff;
+            closestScale = scale;
+        }
+    }
+
+    return closestScale;
+}
+
+
 void Camera::handleEvents(SDL_Event *event)
 {
     // If a key was pressed
@@ -69,6 +94,10 @@ void Camera::handleEvents(SDL_Event *event)
             double newScale = this->scale + this->scaleSpeed;
             if (newScale < this->minScale)
             {
+                int originalSize = 34; // Taille originale d'une tile
+float desiredScale = 0.6; // Scale demandé
+float newScale = getValidScale(desiredScale, originalSize);
+
                 this->scale = newScale;
             }
         }
@@ -77,6 +106,9 @@ void Camera::handleEvents(SDL_Event *event)
             double newScale = this->scale - this->scaleSpeed;
             if (newScale > this->maxScale)
             {
+                int originalSize = 34; // Taille originale d'une tile
+float desiredScale = 0.6; // Scale demandé
+float newScale = getValidScale(desiredScale, originalSize);
                 this->scale = newScale;
             }
         }
