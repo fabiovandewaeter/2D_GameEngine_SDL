@@ -29,6 +29,10 @@ public:
     int getHeight();
     double getScale();
 
+    void calculateScales();
+    void nextScale();
+    void previousScale();
+
 private:
     // Image dimensions
     int width, height;
@@ -39,6 +43,9 @@ private:
     int positionX, positionY;
     int velocity;
     int sprintVelocity;
+
+    int scaleIndex;
+    std::vector<double> validScales;
 };
 
 #endif
