@@ -17,7 +17,7 @@ Game::~Game()
 {
 }
 
-void Game::init(std::string title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init(std::string title, int xpos, int ypos, int width, int height, bool fullscreen, int vsync)
 {
     this->fixedFPS = 60;
     this->fixedUPS = 60;
@@ -40,7 +40,13 @@ void Game::init(std::string title, int xpos, int ypos, int width, int height, bo
             isRunning = false;
         }
         // Create renderer
-        if ((this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED)))
+
+        flags = SDL_RENDERER_ACCELERATED;
+        std::cout << "VALEUR DE VSYNC " << vsync << std::endl;
+        if (vsync == 0){
+            flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+        }
+        if ((this->renderer = SDL_CreateRenderer(this->window, -1, flags)))
         {
             SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
             std::cout << "Renderer created" << std::endl;

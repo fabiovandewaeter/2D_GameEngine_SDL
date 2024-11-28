@@ -60,11 +60,6 @@ private:
 
     void convertToTileCoordinates(int &x, int &y);
 
-
-
-
-
-
     SDL_Renderer *renderer;
 };
 

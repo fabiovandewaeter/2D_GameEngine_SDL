@@ -2,7 +2,7 @@
 
 const double BASE_SCALE = 1.0;
 // 1 if false and sprintVelocity if true
-int sprint = 1;
+float sprint = 0.5;
 int leftVelX = 0, rightVelX = 0, upVelY = 0, downVelY = 0;
 
 Camera::Camera() {}
@@ -18,13 +18,11 @@ void Camera::init(int width, int height, double minScale, double maxScale, int p
     this->scaleSpeed = 1;
     this->positionX = positionX;
     this->positionY = positionY;
-    this->velocity = 1;
+    this->velocity = 2;
     this->sprintVelocity = 50;
 
     this->scaleIndex = 0;
-    std::cout << "TEST1" << std::endl;
     calculateScales();
-    std::cout << "TEST2" << std::endl;
 }
 
 #include <cmath>
@@ -37,28 +35,36 @@ bool hasFractionalPart(double number)
 
 void Camera::calculateScales()
 {
-    double step = 0.05;
+    /*double step = 0.01;
     for (int i = 1; i < 100; i++)
     {
-        double tempo = 34 / (step * i);
+        double tempo = 16 / (step * i);
         if (!hasFractionalPart(tempo))
         {
             std::cout << tempo << std::endl;
-            //this->validScales.push_back(step*i);
-            this->validScales.push_back(1.0);
-        std::cout << "TEST3" << std::endl;
+            this->validScales.push_back(step*i);
         }
+    }*/
+    //this->validScales.push_back(0.5);
+    for (int i = 1; i < 100; i++)
+    {
+        //this->validScales.push_back(34/i);
+        this->validScales.push_back(i);
     }
 }
 
-void Camera::nextScale() {
-    if (this->scaleIndex < this->validScales.size() - 1){
+void Camera::nextScale()
+{
+    if (this->scaleIndex < this->validScales.size() - 1)
+    {
         this->scaleIndex++;
         this->scale = this->validScales[this->scaleIndex];
     }
 }
-void Camera::previousScale() {
-    if (this->scaleIndex > 0){
+void Camera::previousScale()
+{
+    if (this->scaleIndex > 0)
+    {
         this->scaleIndex--;
         this->scale = this->validScales[this->scaleIndex];
     }

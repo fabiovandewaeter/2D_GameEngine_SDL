@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <vector>
 
 // source : https://lazyfoo.net/tutorials/SDL/30_scrolling/index.php
 // Texture wrapper class

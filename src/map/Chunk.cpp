@@ -140,25 +140,18 @@ void Chunk::render(Camera *camera)
     {
         if (this->combinedTexture != nullptr)
         {
-            int cameraPositionX = camera->getPositionX();
+            /*int cameraPositionX = camera->getPositionX();
             int cameraPositionY = camera->getPositionY();
             int viewCenterX = camera->getWidth() / 2;
             int viewCenterY = camera->getHeight() / 2;
             SDL_Rect dstRect = this->box;
-            // Position ajustée avec arrondi pour éviter les flottants
-            dstRect.x = static_cast<int>(std::round(
-                (viewCenterX - cameraPositionX * camera->getScale()) + (dstRect.x * camera->getScale())));
-            dstRect.y = static_cast<int>(std::round(
-                (viewCenterY - cameraPositionY * camera->getScale()) + (dstRect.y * camera->getScale())));
-
-            // Dimensions ajustées
+            dstRect.x = static_cast<int>(std::round((viewCenterX - cameraPositionX * camera->getScale()) + (dstRect.x * camera->getScale())));
+            dstRect.y = static_cast<int>(std::round((viewCenterY - cameraPositionY * camera->getScale()) + (dstRect.y * camera->getScale())));
             dstRect.w = static_cast<int>(dstRect.w * camera->getScale());
             dstRect.h = static_cast<int>(dstRect.h * camera->getScale());
+            SDL_RenderCopy(this->renderer, this->combinedTexture, NULL, &dstRect);*/
 
-            // Désactiver l'interpolation
-
-            // Rendu
-            SDL_RenderCopy(this->renderer, this->combinedTexture, NULL, &dstRect);
+            SDL_RenderCopy(this->renderer, this->combinedTexture, NULL, &renderBox);
         }
         else
         {
