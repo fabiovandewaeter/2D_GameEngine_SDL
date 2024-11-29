@@ -66,20 +66,33 @@ void Map::render()
     SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);  // Couleur noire, par exemple
     SDL_RenderClear(this->renderer);
     int size = this->nearbyChunks.size();
+    int width = 0, height = 0;
     for (int i = 0; i < size; i++)
     {
         Chunk *chunk = this->nearbyChunks[i];
         SDL_Rect renderBox = chunk->getRenderBox();
-        this->camera->convertInGameToCameraCoordinates(renderBox);
 
-        // S'assurer que le chunk est visible avant de le rendre
         if (camera->isVisible(renderBox))
         {
-            //SDL_Rect dstRect = {i * this->tileSize, j * this->tileSize, this->tileSize, this->tileSize};
-            SDL_RenderCopy(this->renderer, this->nearbyChunks[i]->getCombinedTexte(), NULL, &renderBox);
+            //SDL_Rect dstRect = {renderBox.x * this->tileSize*CHUNK_SIZE, renderBox.y * this->tileSize*CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE};
+            //SDL_Rect dstRect = {0, 0, tileSize*CHUNK_SIZE, tileSize*CHUNK_SIZE};
+            //SDL_Rect dstRect = renderBox;
+            SDL_Rect dstRect = {renderBox.x * this->tileSize*CHUNK_SIZE, renderBox.y * this->tileSize*CHUNK_SIZE, renderBox.w, renderBox.h};
+            if (dstRect.x > width) {
+                width = dstRect.x;
+            }
+            if (dstRect.y > height) {
+                height = dstRect.y;
+            }
+            SDL_RenderCopy(this->renderer, chunk->getCombinedTexte(), NULL, &dstRect);
         }
     }
-    SDL_Rect renderBox = {0, 0, this->camera->getWidth(), this->camera->getHeight()};
+    int centerX = width/2;
+    int centerY = height/2;
+    double scale = this->camera->getScale();
+    SDL_Rect renderBox = {centerX*scale, centerY*scale, width*scale, height*scale};
+    std::cout << width << " " << height << std::endl;
+    this->camera->convertInGameToCameraCoordinates(renderBox);
     SDL_SetRenderTarget(this->renderer, previousTarget);
 
     SDL_RenderCopy(this->renderer, globalTexture, NULL, &renderBox);
