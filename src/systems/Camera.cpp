@@ -1,6 +1,5 @@
 #include "systems/Camera.hpp"
 
-const double BASE_SCALE = 1.0;
 // 1 if false and sprintVelocity if true
 float sprint = 0.5;
 int leftVelX = 0, rightVelX = 0, upVelY = 0, downVelY = 0;
@@ -99,7 +98,8 @@ void Camera::handleEvents(SDL_Event *event)
             sprint = sprintVelocity;
             break;
         case SDLK_0:
-            this->scale = BASE_SCALE;
+            this->scaleIndex = 0;
+            this->scale = this->validScales[0];
             break;
         case SDLK_DELETE:
             this->positionX = 0;
