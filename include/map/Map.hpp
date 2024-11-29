@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <cmath>
 #include <string>
+#include "SDL2/SDL_render.h"
 
 class Camera;
 class Texture;

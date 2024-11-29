@@ -93,7 +93,7 @@ void Game::init(std::string title, int xpos, int ypos, int width, int height, bo
     this->collisionManager.init(&this->map, &this->entityManager);
     loadMedia();
     this->entityManager.init(&this->camera, &this->collisionManager, this->entityTextures);
-    this->map.init(&this->camera, Tile::getTileSize(), this->tileTextures, this->passiveStructureTextures, this->activeStructureTextures, &this->perlinNoise, &this->collisionManager);
+    this->map.init(&this->camera, Tile::getTileSize(), this->tileTextures, this->passiveStructureTextures, this->activeStructureTextures, &this->perlinNoise, &this->collisionManager, this->renderer);
 
     this->mouseManager.init(&this->camera, &this->map);
     this->textManager.init(this->renderer);

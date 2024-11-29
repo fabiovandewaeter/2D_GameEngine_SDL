@@ -45,10 +45,18 @@ void Camera::calculateScales()
         }
     }*/
     //this->validScales.push_back(0.5);
-    for (int i = 1; i < 100; i++)
+    
+    
+    /*for (int i = 1; i < 100; i++)
     {
         //this->validScales.push_back(34/i);
         this->validScales.push_back(i);
+    }*/
+    double tempo = 0.1;
+    for (int i = 1; i < 100; i++)
+    {
+        this->validScales.push_back(tempo);
+        tempo+= tempo;
     }
 }
 

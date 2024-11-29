@@ -57,10 +57,12 @@ void Map::render()
     {
         this->nearbyChunks[i]->render(this->camera);
     }*/
-    SDL_Texture *globalTexture = SDL_CreateTexture(this->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, viewWidth, viewHeight);
-
+    SDL_Texture *globalTexture = SDL_CreateTexture(this->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, this->camera->getWidth(), this->camera->getHeight());
+    SDL_Texture *previousTarget = SDL_GetRenderTarget(renderer);
     SDL_SetRenderTarget(renderer, globalTexture);
 
+  SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);  // Couleur noire, par exemple
+    SDL_RenderClear(this->renderer);
     int size = this->nearbyChunks.size();
     for (int i = 0; i < size; i++)
     {
@@ -71,39 +73,17 @@ void Map::render()
         // S'assurer que le chunk est visible avant de le rendre
         if (camera->isVisible(renderBox))
         {
+            //SDL_Rect dstRect = {i * this->tileSize, j * this->tileSize, this->tileSize, this->tileSize};
+            SDL_RenderCopy(this->renderer, this->nearbyChunks[i]->getCombinedTexte(), NULL, &renderBox);
         }
     }
+    SDL_Rect renderBox = {0, 0, this->camera->getWidth(), this->camera->getHeight()};
+    SDL_SetRenderTarget(this->renderer, previousTarget);
 
-    SDL_SetRenderTarget(renderer, nullptr);
-//
-    this->combinedTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, this->box.w, this->box.h);
-    SDL_SetTextureBlendMode(this->combinedTexture, SDL_BLENDMODE_BLEND);
-    for (int i = 0; i < SIZE; i++)
-    {
-        for (int j = 0; j < SIZE; j++)
-        {
-            SDL_Rect dstRect = {i * this->tileSize, j * this->tileSize, this->tileSize, this->tileSize};
-            this->allTiles[SIZE * i + j]->render(renderer, (SDL_Rect){0, 0, 0, 0}, dstRect);
-        }
-    }
+    SDL_RenderCopy(this->renderer, globalTexture, NULL, &renderBox);
+
+    SDL_DestroyTexture(globalTexture);
 }
-
-void Chunk::render(Camera *camera)
-{
-    SDL_Rect renderBox = this->box;
-    camera->convertInGameToCameraCoordinates(renderBox);
-
-    if (camera->isVisible(renderBox))
-    {
-        if (this->combinedTexture != nullptr)
-        {
-            SDL_RenderCopy(this->renderer, this->combinedTexture, NULL, &renderBox);
-        }
-    }
-}
-
-
-
 
 void Map::update()
 {
