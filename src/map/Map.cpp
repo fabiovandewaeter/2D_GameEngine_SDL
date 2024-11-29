@@ -3,13 +3,15 @@
 #include <iostream>
 #include "map/Chunk.hpp"
 
+#include "systems/Camera.hpp"
+
 Map::Map() {}
 Map::~Map()
 {
     free();
 }
 
-void Map::init(Camera *camera, int tileSize, std::vector<Texture *> *tileTextures, std::vector<Texture *> *staticObjectTextures, std::vector<Texture *> *structureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager)
+void Map::init(Camera *camera, int tileSize, std::vector<Texture *> *tileTextures, std::vector<Texture *> *staticObjectTextures, std::vector<Texture *> *structureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager, SDL_Renderer * renderer)
 {
     this->camera = camera;
     this->tileSize = tileSize;
@@ -18,6 +20,7 @@ void Map::init(Camera *camera, int tileSize, std::vector<Texture *> *tileTexture
     this->structureTextures = structureTextures;
     this->perlinNoise = perlinNoise;
     this->collisionManager = collisionManager;
+    this->renderer = renderer;
     loadChunks();
 }
 
@@ -46,14 +49,62 @@ void Map::generateChunk(int positionX, int positionY)
     this->allChunks[coordinates] = newChunk;
 }
 
+
 void Map::render()
 {
-    int size = this->nearbyChunks.size();
+    /*int size = this->nearbyChunks.size();
     for (int i = 0; i < size; i++)
     {
         this->nearbyChunks[i]->render(this->camera);
+    }*/
+    SDL_Texture *globalTexture = SDL_CreateTexture(this->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, viewWidth, viewHeight);
+
+    SDL_SetRenderTarget(renderer, globalTexture);
+
+    int size = this->nearbyChunks.size();
+    for (int i = 0; i < size; i++)
+    {
+        Chunk *chunk = this->nearbyChunks[i];
+        SDL_Rect renderBox = chunk->getRenderBox();
+        this->camera->convertInGameToCameraCoordinates(renderBox);
+
+        // S'assurer que le chunk est visible avant de le rendre
+        if (camera->isVisible(renderBox))
+        {
+        }
+    }
+
+    SDL_SetRenderTarget(renderer, nullptr);
+//
+    this->combinedTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, this->box.w, this->box.h);
+    SDL_SetTextureBlendMode(this->combinedTexture, SDL_BLENDMODE_BLEND);
+    for (int i = 0; i < SIZE; i++)
+    {
+        for (int j = 0; j < SIZE; j++)
+        {
+            SDL_Rect dstRect = {i * this->tileSize, j * this->tileSize, this->tileSize, this->tileSize};
+            this->allTiles[SIZE * i + j]->render(renderer, (SDL_Rect){0, 0, 0, 0}, dstRect);
+        }
     }
 }
+
+void Chunk::render(Camera *camera)
+{
+    SDL_Rect renderBox = this->box;
+    camera->convertInGameToCameraCoordinates(renderBox);
+
+    if (camera->isVisible(renderBox))
+    {
+        if (this->combinedTexture != nullptr)
+        {
+            SDL_RenderCopy(this->renderer, this->combinedTexture, NULL, &renderBox);
+        }
+    }
+}
+
+
+
+
 void Map::update()
 {
     int size = this->nearbyChunks.size();

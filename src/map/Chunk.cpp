@@ -130,6 +130,10 @@ void Chunk::generateCombinedTexture(SDL_Renderer *renderer)
     // Restaurer le target précédent
     SDL_SetRenderTarget(renderer, previousTarget);
 }
+SDL_Rect Chunk::getRenderBox()
+{
+    return this->box;
+}
 
 void Chunk::render(Camera *camera)
 {
@@ -251,3 +255,5 @@ void Chunk::destroyStructure(int x, int y)
     }
 }
 void Chunk::setFaction(Faction *faction) { this->faction = faction; }
+
+SDL_Texture * Chunk::getCombinedTexte(){return this->combinedTexture;}

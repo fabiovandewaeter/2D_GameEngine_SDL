@@ -20,7 +20,7 @@ public:
     Map();
     ~Map();
 
-    void init(Camera *camera, int tileSize, std::vector<Texture *> *tileTextures, std::vector<Texture *> *staticObjectTextures, std::vector<Texture *> *structureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager);
+    void init(Camera *camera, int tileSize, std::vector<Texture *> *tileTextures, std::vector<Texture *> *staticObjectTextures, std::vector<Texture *> *structureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager, SDL_Renderer * renderer);
     void loadChunks();
     void generateChunk(int positionX, int positionY);
     void loadSquareMap(int size);
@@ -45,6 +45,8 @@ private:
     std::vector<Chunk *> nearbyChunks;
 
     void convertToChunkCoordinates(int &x, int &y);
+
+    SDL_Renderer * renderer;
 };
 
 #endif

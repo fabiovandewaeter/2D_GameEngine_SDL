@@ -42,6 +42,9 @@ public:
     void destroyStructure(int x, int y);
     void setFaction(Faction *faction);
 
+    SDL_Texture *getCombinedTexte();
+    SDL_Rect getRenderBox();
+
 private:
     Tile *allTiles[SIZE * SIZE];
     std::vector<Texture *> *tileTextures;
