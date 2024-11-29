@@ -57,11 +57,13 @@ void Map::render()
     {
         this->nearbyChunks[i]->render(this->camera);
     }*/
+
+// ---------------
     SDL_Texture *globalTexture = SDL_CreateTexture(this->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, this->camera->getWidth(), this->camera->getHeight());
     SDL_Texture *previousTarget = SDL_GetRenderTarget(renderer);
     SDL_SetRenderTarget(renderer, globalTexture);
 
-  SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);  // Couleur noire, par exemple
+    SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);  // Couleur noire, par exemple
     SDL_RenderClear(this->renderer);
     int size = this->nearbyChunks.size();
     for (int i = 0; i < size; i++)
@@ -83,6 +85,20 @@ void Map::render()
     SDL_RenderCopy(this->renderer, globalTexture, NULL, &renderBox);
 
     SDL_DestroyTexture(globalTexture);
+// ---------------
+    /*SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);  // Couleur noire, par exemple
+    SDL_RenderClear(this->renderer);
+    int size = this->nearbyChunks.size();
+    for (int i = 0; i < size; i++)
+    {
+        Chunk *chunk = this->nearbyChunks[i];
+        SDL_Rect renderBox = chunk->getRenderBox();
+        this->camera->convertInGameToCameraCoordinates(renderBox);
+        if (camera->isVisible(renderBox))
+        {
+            SDL_RenderCopy(this->renderer, this->nearbyChunks[i]->getCombinedTexte(), NULL, &renderBox);
+        }
+    }*/
 }
 
 void Map::update()
