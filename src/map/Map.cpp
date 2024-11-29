@@ -77,7 +77,7 @@ void Map::render()
             //SDL_Rect dstRect = {renderBox.x * this->tileSize*CHUNK_SIZE, renderBox.y * this->tileSize*CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE};
             //SDL_Rect dstRect = {0, 0, tileSize*CHUNK_SIZE, tileSize*CHUNK_SIZE};
             //SDL_Rect dstRect = renderBox;
-            SDL_Rect dstRect = {renderBox.x * this->tileSize*CHUNK_SIZE, renderBox.y * this->tileSize*CHUNK_SIZE, renderBox.w, renderBox.h};
+            SDL_Rect dstRect = {renderBox.x * this->tileSize, renderBox.y * this->tileSize, renderBox.w, renderBox.h};
             if (dstRect.x > width) {
                 width = dstRect.x;
             }
@@ -88,9 +88,11 @@ void Map::render()
         }
     }
     int centerX = width/2;
+    centerX = 0;
     int centerY = height/2;
+    centerY = 0;
     double scale = this->camera->getScale();
-    SDL_Rect renderBox = {centerX*scale, centerY*scale, width*scale, height*scale};
+    SDL_Rect renderBox = {centerX, centerY, width*scale, height*scale};
     std::cout << width << " " << height << std::endl;
     this->camera->convertInGameToCameraCoordinates(renderBox);
     SDL_SetRenderTarget(this->renderer, previousTarget);
