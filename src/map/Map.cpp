@@ -11,7 +11,7 @@ Map::~Map()
     free();
 }
 
-void Map::init(Camera *camera, int tileSize, std::vector<Texture *> *tileTextures, std::vector<Texture *> *staticObjectTextures, std::vector<Texture *> *structureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager, SDL_Renderer * renderer)
+void Map::init(Camera *camera, int tileSize, std::vector<Texture *> *tileTextures, std::vector<Texture *> *staticObjectTextures, std::vector<Texture *> *structureTextures, PerlinNoise *perlinNoise, CollisionManager *collisionManager, SDL_Renderer *renderer)
 {
     this->camera = camera;
     this->tileSize = tileSize;
@@ -26,13 +26,20 @@ void Map::init(Camera *camera, int tileSize, std::vector<Texture *> *tileTexture
 
 void Map::loadChunks()
 {
-    loadSquareMap(10);
+    loadSquareMap(1);
 }
 void Map::loadSquareMap(int size)
 {
-    for (int i = -size / 2; i < size / 2; i++)
+    /*for (int i = -size / 2; i < size / 2; i++)
     {
         for (int j = -size / 2; j < size / 2; j++)
+        {
+            generateChunk(this->tileSize * CHUNK_SIZE * i, j * this->tileSize * CHUNK_SIZE);
+        }
+    }*/
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
         {
             generateChunk(this->tileSize * CHUNK_SIZE * i, j * this->tileSize * CHUNK_SIZE);
         }
@@ -49,7 +56,6 @@ void Map::generateChunk(int positionX, int positionY)
     this->allChunks[coordinates] = newChunk;
 }
 
-
 void Map::render()
 {
     /*int size = this->nearbyChunks.size();
@@ -58,12 +64,12 @@ void Map::render()
         this->nearbyChunks[i]->render(this->camera);
     }*/
 
-// ---------------
+    // ---------------
     SDL_Texture *globalTexture = SDL_CreateTexture(this->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, this->camera->getWidth(), this->camera->getHeight());
     SDL_Texture *previousTarget = SDL_GetRenderTarget(renderer);
     SDL_SetRenderTarget(renderer, globalTexture);
 
-    SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);  // Couleur noire, par exemple
+    SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255); // Couleur noire, par exemple
     SDL_RenderClear(this->renderer);
     int size = this->nearbyChunks.size();
     int width = 0, height = 0;
@@ -74,25 +80,27 @@ void Map::render()
 
         if (camera->isVisible(renderBox))
         {
-            //SDL_Rect dstRect = {renderBox.x * this->tileSize*CHUNK_SIZE, renderBox.y * this->tileSize*CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE};
-            //SDL_Rect dstRect = {0, 0, tileSize*CHUNK_SIZE, tileSize*CHUNK_SIZE};
-            //SDL_Rect dstRect = renderBox;
+            // SDL_Rect dstRect = {renderBox.x * this->tileSize*CHUNK_SIZE, renderBox.y * this->tileSize*CHUNK_SIZE, CHUNK_SIZE, CHUNK_SIZE};
+            // SDL_Rect dstRect = {0, 0, tileSize*CHUNK_SIZE, tileSize*CHUNK_SIZE};
+            // SDL_Rect dstRect = renderBox;
             SDL_Rect dstRect = {renderBox.x * this->tileSize, renderBox.y * this->tileSize, renderBox.w, renderBox.h};
-            if (dstRect.x > width) {
+            if (dstRect.x > width)
+            {
                 width = dstRect.x;
             }
-            if (dstRect.y > height) {
+            if (dstRect.y > height)
+            {
                 height = dstRect.y;
             }
             SDL_RenderCopy(this->renderer, chunk->getCombinedTexte(), NULL, &dstRect);
         }
     }
-    int centerX = width/2;
+    int centerX = width / 2;
     centerX = 0;
-    int centerY = height/2;
+    int centerY = height / 2;
     centerY = 0;
     double scale = this->camera->getScale();
-    SDL_Rect renderBox = {centerX, centerY, width*scale, height*scale};
+    SDL_Rect renderBox = {centerX, centerY, width * scale, height * scale};
     std::cout << width << " " << height << std::endl;
     this->camera->convertInGameToCameraCoordinates(renderBox);
     SDL_SetRenderTarget(this->renderer, previousTarget);
@@ -100,7 +108,7 @@ void Map::render()
     SDL_RenderCopy(this->renderer, globalTexture, NULL, &renderBox);
 
     SDL_DestroyTexture(globalTexture);
-// ---------------
+    // ---------------
     /*SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);  // Couleur noire, par exemple
     SDL_RenderClear(this->renderer);
     int size = this->nearbyChunks.size();
