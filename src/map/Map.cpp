@@ -59,8 +59,8 @@ void Map::render()
     }*/
     // ---------------
     double scale = this->camera->getScale();
-    int widthRenderer = 1000;
-    int heightRenderer = 1000;
+    int widthRenderer = CHUNK_SIZE*this->tileSize*50;
+    int heightRenderer = CHUNK_SIZE*this->tileSize*50;
     int cameraWidth = this->camera->getWidth();
     int cameraHeight = this->camera->getHeight();
 
@@ -116,13 +116,46 @@ void Map::render()
     SDL_SetRenderTarget(this->renderer, previousTarget);
 
     SDL_Rect finalBox = {0, 0, cameraWidth, cameraHeight};
-    finalBox.w *= scale;
+    /*finalBox.w *= scale;
     finalBox.h *= scale;
     finalBox.x = ((cameraWidth / 2)) - ((finalBox.w / 2)) - (cameraPositionX*scale);
     finalBox.y = ((cameraHeight / 2)) - ((finalBox.h / 2)) - (cameraPositionY*scale);
+    SDL_RenderCopy(this->renderer, globalTexture, NULL, &finalBox);*/
+    /*renderBox.w = cameraWidth*scale;
+    renderBox.h = cameraHeight*scale;
+    //renderBox.x = ((cameraWidth / 2)) - ((renderBox.w / 2)) - (cameraPositionX*scale);
+    //renderBox.y = ((cameraHeight / 2)) - ((renderBox.h / 2)) - (cameraPositionY*scale);
+    //renderBox.x = cameraPositionX - (renderBox.w / 2);
+    //renderBox.y = cameraPositionY - (renderBox.h / 2);
+    renderBox.x = cameraPositionX;
+    renderBox.y = cameraPositionY;
+    SDL_RenderCopy(this->renderer, globalTexture, &renderBox, &finalBox);*/
 
-    // SDL_RenderCopy(this->renderer, globalTexture, &renderBox, &finalBox);
-    SDL_RenderCopy(this->renderer, globalTexture, NULL, &finalBox);
+    /*SDL_Rect rect = {-widthRenderer/2, -heightRenderer/2, widthRenderer, heightRenderer};
+    cameraPositionX = this->camera->getPositionX();
+    cameraPositionY = this->camera->getPositionY();
+    viewCenterX = cameraWidth / 2;
+    viewCenterY = cameraHeight / 2;
+
+    rect.x = (viewCenterX - cameraPositionX * scale) + (rect.x * scale);
+    rect.y = (viewCenterY - cameraPositionY * scale) + (rect.y * scale);
+
+    rect.w *= scale;
+    rect.h *= scale;*/
+    cameraPositionX = this->camera->getPositionX();
+    cameraPositionY = this->camera->getPositionY();
+
+    SDL_Rect rect = {widthRenderer / 2 - cameraWidth / 2, heightRenderer / 2 - cameraHeight / 2, cameraWidth, cameraHeight};
+    rect.x = cameraPositionX*10;
+    rect.y = cameraPositionY*10;
+    std::cout << rect.x << " " << rect.y << " " << rect.w << " " << rect.h << std::endl;
+
+    SDL_Rect complet = {0, 0, cameraWidth, cameraHeight};
+    SDL_RenderCopy(this->renderer, globalTexture, &rect, &complet);
+    //SDL_RenderCopy(this->renderer, globalTexture, &rect, NULL);
+    //SDL_RenderCopy(this->renderer, globalTexture, NULL, &rect);
+
+
     // SDL_RenderCopy(this->renderer, globalTexture, NULL, &renderBox);
 
     SDL_DestroyTexture(globalTexture);
