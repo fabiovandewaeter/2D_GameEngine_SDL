@@ -118,8 +118,8 @@ void Map::render()
     SDL_Rect finalBox = {0, 0, cameraWidth, cameraHeight};
     finalBox.w *= scale;
     finalBox.h *= scale;
-    finalBox.x = ((cameraWidth / 2)) - ((finalBox.w / 2));
-    finalBox.y = ((cameraHeight / 2)) - ((finalBox.h / 2));
+    finalBox.x = ((cameraWidth / 2)) - ((finalBox.w / 2)) - (cameraPositionX*scale);
+    finalBox.y = ((cameraHeight / 2)) - ((finalBox.h / 2)) - (cameraPositionY*scale);
 
     // SDL_RenderCopy(this->renderer, globalTexture, &renderBox, &finalBox);
     SDL_RenderCopy(this->renderer, globalTexture, NULL, &finalBox);
