@@ -26,20 +26,16 @@ void Map::init(Camera *camera, int tileSize, std::vector<Texture *> *tileTexture
 
 void Map::loadChunks()
 {
-    loadSquareMap(1);
+    loadSquareMap(3);
 }
 void Map::loadSquareMap(int size)
 {
-    /*for (int i = -size / 2; i < size / 2; i++)
-    {
-        for (int j = -size / 2; j < size / 2; j++)
-        {
-            generateChunk(this->tileSize * CHUNK_SIZE * i, j * this->tileSize * CHUNK_SIZE);
-        }
-    }*/
     for (int i = 0; i < size; i++)
     {
-        generateChunk(0, 0);
+        for (int j = 0; j < size; j++)
+        {
+            generateChunk(i * CHUNK_SIZE * this->tileSize, j * CHUNK_SIZE * this->tileSize);
+        }
     }
 }
 
@@ -48,7 +44,7 @@ void Map::generateChunk(int positionX, int positionY)
     Chunk *newChunk = new Chunk(positionX, positionY, this->tileSize, this, this->tileTextures, this->staticObjectTextures, this->structureTextures, this->perlinNoise, this->collisionManager);
     this->nearbyChunks.push_back(newChunk);
     int i = positionX, j = positionY;
-    //convertToChunkCoordinates(i, j);
+    convertToChunkCoordinates(i, j);
     std::string coordinates = std::to_string(i) + "," + std::to_string(j);
     this->allChunks[coordinates] = newChunk;
 }
@@ -62,52 +58,72 @@ void Map::render()
         this->nearbyChunks[i]->render(this->camera);
     }*/
     // ---------------
-    SDL_Texture *globalTexture = SDL_CreateTexture(this->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, this->camera->getWidth(), this->camera->getHeight());
+    double scale = this->camera->getScale();
+    int widthRenderer = 1000;
+    int heightRenderer = 1000;
+    int cameraWidth = this->camera->getWidth();
+    int cameraHeight = this->camera->getHeight();
+
+    SDL_Texture *globalTexture = SDL_CreateTexture(this->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, widthRenderer, heightRenderer);
     SDL_Texture *previousTarget = SDL_GetRenderTarget(renderer);
     SDL_SetRenderTarget(renderer, globalTexture);
 
-    SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 0);
+    SDL_SetRenderDrawColor(this->renderer, 0, 255, 255, 255);
     SDL_RenderClear(this->renderer);
     int size = this->nearbyChunks.size();
     int minX = 0, minY = 0, width = 0, height = 0;
     for (int i = 0; i < size; i++)
     {
         Chunk *chunk = this->nearbyChunks[i];
+
+        // IL FAUT SUREMENT FAIRE EN FONCTION DU SCALE POUR ENGLOBER TOUS LES CHUNKS VISIBLES
         SDL_Rect renderBox = chunk->getRenderBox();
+        // IL FAUT SUREMENT FAIRE EN FONCTION DU SCALE POUR ENGLOBER TOUS LES CHUNKS VISIBLES
 
         if (camera->isVisible(renderBox))
         {
             SDL_Rect dstRect = {renderBox.x, renderBox.y, renderBox.w, renderBox.h};
-            if (dstRect.x+dstRect.w > width)
-            {
-                width = dstRect.x+dstRect.w;
-            }
-            if (dstRect.y+dstRect.h > height)
-            {
-                height = dstRect.y+dstRect.h;
-            }
-            if (dstRect.x < minX){
-                minX = dstRect.x;
-            }
-            if (dstRect.y < minY){
-                minY = dstRect.y;
-            }
+            /*if (dstRect.x + dstRect.w > width){width = dstRect.x + dstRect.w;}
+            if (dstRect.y + dstRect.h > height){height = dstRect.y + dstRect.h;}
+            if (dstRect.x < minX){minX = dstRect.x;}
+            if (dstRect.y < minY){minY = dstRect.y;}*/
+            int cameraPositionX = dstRect.x;
+            int cameraPositionY = dstRect.y;
+            int viewCenterX = this->camera->getWidth() / 2;
+            int viewCenterY = this->camera->getHeight() / 2;
+            dstRect.x = (viewCenterX - cameraPositionX) + (dstRect.x);
+            dstRect.y = (viewCenterY - cameraPositionY) + (dstRect.y);
+
             SDL_RenderCopy(this->renderer, chunk->getCombinedTexte(), NULL, &dstRect);
         }
     }
     int centerX = width / 2;
-    centerX = 0;
     int centerY = height / 2;
-    centerY = 0;
-    std::cout << minX << " " << minY << " " << width << " " << height << std::endl;
-    double scale = this->camera->getScale();
-    //SDL_Rect renderBox = {centerX, centerY, width * scale, height * scale};
-    //SDL_Rect renderBox = {minX, minY, width, height};
+
     SDL_Rect renderBox = {minX, minY, this->camera->getWidth(), this->camera->getHeight()};
-    this->camera->convertInGameToCameraCoordinates(renderBox);
+    int viewCenterX = widthRenderer / 2;
+    int viewCenterY = heightRenderer / 2;
+    int cameraPositionX = this->camera->getPositionX();
+    int cameraPositionY = this->camera->getPositionY();
+    int viewPositionX = (viewCenterX - cameraPositionX * scale) + (renderBox.x * scale);
+    int viewPositionY = (viewCenterY - cameraPositionY * scale) + (renderBox.y * scale);
+
+    renderBox.x = 0;
+    renderBox.y = 0;
+    renderBox.w = widthRenderer;
+    renderBox.h = heightRenderer;
+    // this->camera->convertInGameToCameraCoordinates(renderBox);
     SDL_SetRenderTarget(this->renderer, previousTarget);
 
-    SDL_RenderCopy(this->renderer, globalTexture, NULL, &renderBox);
+    SDL_Rect finalBox = {0, 0, cameraWidth, cameraHeight};
+    finalBox.w *= scale;
+    finalBox.h *= scale;
+    finalBox.x = ((cameraWidth / 2)) - ((finalBox.w / 2));
+    finalBox.y = ((cameraHeight / 2)) - ((finalBox.h / 2));
+
+    // SDL_RenderCopy(this->renderer, globalTexture, &renderBox, &finalBox);
+    SDL_RenderCopy(this->renderer, globalTexture, NULL, &finalBox);
+    // SDL_RenderCopy(this->renderer, globalTexture, NULL, &renderBox);
 
     SDL_DestroyTexture(globalTexture);
     // ---------------
