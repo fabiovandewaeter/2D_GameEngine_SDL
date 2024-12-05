@@ -59,8 +59,8 @@ void Map::render()
     }*/
     // ---------------
     double scale = this->camera->getScale();
-    int widthRenderer = CHUNK_SIZE*this->tileSize*50;
-    int heightRenderer = CHUNK_SIZE*this->tileSize*50;
+    int widthRenderer = CHUNK_SIZE*this->tileSize;
+    int heightRenderer = CHUNK_SIZE*this->tileSize;
     int cameraWidth = this->camera->getWidth();
     int cameraHeight = this->camera->getHeight();
 
